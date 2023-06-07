@@ -17,7 +17,3 @@ TCP/IP (Transmission Control Protocol and Internet Protocol) are used to ensure 
 You should also need to know **how the data is transferred over the internet.** Routers require **modems**, which transforms the data sent on our network into data that the infrastructure which the internet relies on the transfer data can handle. For example, a modem is used to transform data into a format which telephone or electrical cables can handle. Data is transferred from your computer to the router, which then transfers it to the modem. **Internet Service Providers** are then relied on to transfer data using special routers that allow them to connect to other routers controlled by other ISPs in the network. These ISPs eventually relay the information to the modem, router, and finally the destination device.
 
 ---
-
-[CS FYI - How does the internet work? ](How%20does%20the%20internet%20work%2074198915feb8432c814cb2aa0f132e7e/CS%20FYI%20-%20How%20does%20the%20internet%20work%209efbded4b6be4f7a931861b11bbf32e7.md)
-
-[Developer Mozilla - How does the Internet work? ](How%20does%20the%20internet%20work%2074198915feb8432c814cb2aa0f132e7e/Developer%20Mozilla%20-%20How%20does%20the%20Internet%20work%200aecab1fdcb443ab8711a58dd4847ac8.md)
