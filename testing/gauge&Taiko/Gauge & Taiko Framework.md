@@ -26,7 +26,7 @@ Taiko also includes the option to use more powerful and direct commands, for exa
 
 There are a few ways you could promote reusability in Gauge and Taiko - it depends on your preferences and which layer you would like to abstract out the reuse of code.
 
-Since Gauge is meant to be human-readable and across different teams, I suggest that it’s better to keep the abstraction and reusing of code in the test layer. This ensures that the \***\*Specification (Markdown) layer** just handles the concern of making things precise and easy to read for all team members (Product Manager, QA, Software Engineer) while the QA/Software Engineers can handle the abstractions/reusability in the **Test Layer**
+Since Gauge is meant to be human-readable and across different teams, I suggest that it’s better to keep the abstraction and reusing of code in the test layer. This ensures that the **Specification (Markdown) layer** just handles the concern of making things precise and easy to read for all team members (Product Manager, QA, Software Engineer) while the QA/Software Engineers can handle the abstractions/reusability in the **Test Layer**
 
 Another potential issue you might run into if you reuse in the **Markdown layer** is that your steps become **heavily coupled**. This is quite dangerous because certain fields might require different methods etc
 
