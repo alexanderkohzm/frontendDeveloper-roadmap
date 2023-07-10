@@ -1,0 +1,32 @@
+body {
+  background-color: bisque;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  margin: 15px;
+  padding: 15px;
+}
+
+.card {
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  width: 10rem;
+  height: 5rem;
+  padding: 2rem;
+  margin: 1rem;
+  box-shadow: 0 12.5px 10px rgba(0, 0, 0, 0.035),
+    0 100px 80px rgba(0, 0, 0, 0.07);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 18px;
+  margin: 15px;
+}
+
+.ellipses {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
