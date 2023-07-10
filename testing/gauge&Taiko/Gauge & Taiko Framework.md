@@ -116,3 +116,113 @@ step("Type into field <field> <value>", async function (field, value) {
   );
 });
 ```
+
+**Reusable Methods**
+
+```jsx
+const defaultInputMethod = async (field, value) => {
+  await click(field);
+  await write(value);
+};
+
+const inputWithId = async (field, value, id) => {
+  const targetField = textBox({ id }, below(field));
+  await write(value, targetField);
+};
+
+const inputDropdown = async (field, value, id) => {
+  const targetField = textBox({ id }, below(field));
+  await write(value, targetField);
+  await press("Enter");
+};
+```
+
+**Example Integration Test**
+
+```jsx
+### Able to register an account
+* Register by filling up the form with table of values
+
+| Field             | Value         | InputMethod  | Id                |
+|-------------------|---------------|--------------|-------------------|
+| Name              | Test Name     | Default      |                   |
+| Display Name      | Testing123    | Default      |                   |
+| Email             | test@email.com| Default      |                   |
+| Password          | nJhYt#134     | Default      |                   |
+| Confirm Password  | nJhYt#134     | ById         | password-confirm  |
+| Country           | Singapore     | Dropdown     |   country         |
+| Country Code      | +65           | Dropdown     |   input-124       |
+| Contact Number    | 88888888      | ById         |   input-129       |
+```
+
+```jsx
+step(
+  "Register by filling up the form with table of values <table>",
+  async (table) => {
+    for (const row of table.rows) {
+      const field = row.cells[0];
+      const value = row.cells[1];
+      const inputMethod = row.cells[2];
+      const id = row.cells[3];
+
+      // !IMPORTANT!
+      // Email, ConfirmPassword, Country, and PhoneNumber fields cannot be written into directly
+      // and returns an error. We need to use different methods for different fields
+      // Example Error below
+      // Error: TextBox with label Email is not writable
+
+      // This switch statement is not optimal
+      // There must be a more reliable way of writing into fields
+      // But that'll only be certain after more experience - this is my first time
+      // using Gauge and Taiko
+
+      switch (inputMethod) {
+        case "Default":
+          // need to randomise email to make sure it's unique
+          if (field === "Email" || field === "Display Name") {
+            const randomString = generateRandomString(6);
+            const uniqueEmail = `${randomString}${value}`;
+            await defaultInputMethod(field, uniqueEmail);
+          } else {
+            await defaultInputMethod(field, value);
+          }
+          break;
+        case "ById":
+          await inputWithId(field, value, id);
+          break;
+        case "Dropdown":
+          await inputDropdown(field, value, id);
+          break;
+        default:
+          console.log(`Error, no inputMethod passed in`);
+      }
+    }
+
+    // agree to T&C
+    await click("I agree to");
+
+    // click on register
+    waitFor(1000);
+    await click(
+      button(
+        "Register",
+        below("I agree to terms and conditions and privacy policy")
+      )
+    );
+
+    // wait for request to create account
+    waitFor(5000);
+
+    // Registered Successfully modal
+    const successModalHeader = text("Registered Successfully!");
+    const successModalHeaderExists = await successModalHeader.exists();
+    const successMessage = text(`We've sent an email`);
+    const successMessageExists = await successMessage.exists();
+
+    assert(
+      successModalHeaderExists && successMessageExists,
+      "Registration Integration test failed, unable to find success modal header or success message"
+    );
+  }
+);
+```
